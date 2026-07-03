@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>選句子</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #f2f2f2;
+            text-align: center;
+        }
+
+        .card {
+            background: white;
+            width: 400px;
+            margin: 15px auto;
+            padding: 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0px 0px 5px rgba(0,0,0,0.1);
+        }
+
+        .card:hover {
+            background: #e8f5e9;
+        }
+    </style>
+</head>
+
+<body>
+
+<h2>{{ region }} {{ gender }} 專區</h2>
+
+{% for s in sentences %}
+
+<div class="card"
+     onclick="selectSentence({{ s.id }})">
+
+    {{ s.content }}
+
+</div>
+
+{% endfor %}
+
+<script>
+function selectSentence(id){
+
+    fetch("/choose/" + id, {
+        method: "POST"
+    }).then(() => {
+        alert("已選擇！");
+        location.reload();
+    });
+
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>管理後台</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #f4f4f4;
+            text-align: center;
+        }
+
+        table {
+            margin: auto;
+            background: white;
+            border-collapse: collapse;
+            width: 80%;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background: #333;
+            color: white;
+        }
+
+        .btn {
+            padding: 5px 10px;
+            background: red;
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<h2>管理後台</h2>
+
+<a href="/reset" class="btn btn-warning mb-3">
+    🔄 一鍵重置所有句子
+</a>
+
+<h3>新增句子</h3>
+
+<form method="POST" action="/add_sentence">
+
+    <input name="region" placeholder="北部/中部/南部">
+    <input name="gender" placeholder="男/女">
+    <input name="content" placeholder="句子內容">
+
+    <button type="submit">新增</button>
+
+</form>
+
+<table>
+
+<tr>
+    <th>ID</th>
+    <th>分類</th>
+    <th>內容</th>
+    <th>狀態</th>
+    <th>操作</th>
+</tr>
+
+{% for s in sentences %}
+
+<tr>
+
+    <td>{{ s.id }}</td>
+    <td>{{ s.region }} {{ s.gender }}</td>
+    <td>{{ s.content }}</td>
+    <td>
+        {% if s.selected %}
+            已選
+        {% else %}
+            可選
+        {% endif %}
+    </td>
+
+    <td>
+        <a class="btn" href="/delete/{{ s.id }}">刪除</a>
+    </td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</body>
+</html>
+
