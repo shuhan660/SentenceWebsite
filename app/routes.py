@@ -60,26 +60,18 @@ def select(region, gender):
 
 
 from sqlalchemy import select
-from sqlalchemy.orm import with_for_update
 
 @main.route("/choose/<int:id>", methods=["POST"])
 def choose(id):
+    sentence = Sentence.query.get_or_404(id)
 
-    sentence = Sentence.query.get(id)
-
-    # 🔥 雙保護
     if sentence.selected:
         return "已被選走"
 
-    try:
-        sentence.selected = True
-        db.session.commit()
-        return "ok"
+    sentence.selected = True
+    db.session.commit()
 
-    except:
-        db.session.rollback()
-        return "error"
-
+    return "ok"
 
 @main.route("/admin")
 def admin():
