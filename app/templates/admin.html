@@ -50,12 +50,29 @@
 
 <form method="POST" action="/add_sentence">
 
-    <input name="region" placeholder="北部/中部/南部">
-    <input name="gender" placeholder="男/女">
-    <input name="content" placeholder="句子內容">
+    學號：
+    <input name="student_id" required>
+
+    姓名：
+    <input name="name" required>
+
+    性別：
+    <select name="gender">
+        <option value="男">男</option>
+        <option value="女">女</option>
+    </select>
+
+    地區：
+    <select name="region">
+        <option value="北">北部</option>
+        <option value="中">中部</option>
+        <option value="南">南部</option>
+    </select>
+
+    句子：
+    <input name="content" required>
 
     <button type="submit">新增</button>
-
 </form>
 
 <table>

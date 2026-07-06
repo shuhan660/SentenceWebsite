@@ -117,22 +117,37 @@ def add_sentence():
     if not session.get("admin"):
         return "no permission"
 
+    student_id = request.form["student_id"]
+    name = request.form["name"]
     region = request.form["region"]
     gender = request.form["gender"]
     content = request.form["content"]
+
+    # 🔥 找或建立學生
+    student = Student.query.filter_by(student_id=student_id).first()
+
+    if not student:
+        student = Student(
+            student_id=student_id,
+            name=name,
+            gender=gender,
+            region=region
+        )
+        db.session.add(student)
+        db.session.commit()
 
     sentence = Sentence(
         region=region,
         gender=gender,
         content=content,
-        selected=False
+        selected=False,
+        selected_by=student.id
     )
 
     db.session.add(sentence)
     db.session.commit()
 
     return redirect("/admin")
-
 
 
 @main.route("/reset")
