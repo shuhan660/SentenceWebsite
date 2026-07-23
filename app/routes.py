@@ -98,3 +98,12 @@ def add_sentence():
 
 
 
+from . import db
+
+@main.route("/rebuild")
+def rebuild():
+
+    db.drop_all()
+    db.create_all()
+
+    return "Database rebuilt!"
